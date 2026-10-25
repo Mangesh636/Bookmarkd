@@ -10,7 +10,10 @@ export default function AppProvider({
 }) {
 	return (
 		<ThemeProvider theme={theme}>
-			<TooltipProvider>{children}</TooltipProvider>
+			<TooltipProvider>
+				{children}
+				<Toaster />
+			</TooltipProvider>
 		</ThemeProvider>
 	);
 }
