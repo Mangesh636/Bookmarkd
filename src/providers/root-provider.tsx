@@ -1,3 +1,4 @@
+import { Toaster } from "@/shared/components/ui/toast";
 import { TooltipProvider } from "@/shared/components/ui/tooltip";
 import { ThemeProvider } from "./theme-provider";
 
