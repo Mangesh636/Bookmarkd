@@ -1,14 +1,29 @@
-import { createFileRoute } from '@tanstack/react-router'
+import { RiErrorWarningLine } from "@remixicon/react";
+import { createFileRoute } from "@tanstack/react-router";
 
-export const Route = createFileRoute('/')({ component: Home })
+import {
+	Alert,
+	AlertAction,
+	AlertDescription,
+	AlertTitle,
+} from "@/shared/components/ui/alert";
+import { Button } from "@/shared/components/ui/button";
+
+export const Route = createFileRoute("/")({ component: Home });
 
 function Home() {
-  return (
-    <div className="p-8">
-      <h1 className="text-4xl font-bold">Welcome to TanStack Start</h1>
-      <p className="mt-4 text-lg">
-        Edit <code>src/routes/index.tsx</code> to get started.
-      </p>
-    </div>
-  )
+	return (
+		<div className="mx-auto translate-y-1/2 w-full max-w-xs">
+			<Alert>
+				<RiErrorWarningLine />
+				<AlertTitle>Heads up!</AlertTitle>
+				<AlertDescription>
+					You can add components and dependencies to your app using the cli.
+				</AlertDescription>
+				<AlertAction>
+					<Button variant="outline">Enable</Button>
+				</AlertAction>
+			</Alert>
+		</div>
+	);
 }
