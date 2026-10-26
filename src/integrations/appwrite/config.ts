@@ -1,7 +1,6 @@
 import { Client } from "appwrite";
+import { clientEnv } from "../env/config";
 
-const appwriteClient = new Client()
-	.setEndpoint(import.meta.env.VITE_APPWRITE_ENDPOINT)
-	.setProject(import.meta.env.VITE_APPWRITE_PROJECT_ID);
-
-export { appwriteClient };
+export const appwriteClient = new Client()
+	.setEndpoint(clientEnv.VITE_APPWRITE_ENDPOINT)
+	.setProject(clientEnv.VITE_APPWRITE_PROJECT_ID);
