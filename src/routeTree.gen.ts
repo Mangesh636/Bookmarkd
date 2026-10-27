@@ -10,33 +10,77 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as AuthAuthRouteImport } from './routes/_auth/auth'
+import { Route as DashboardDashboardRouteImport } from './routes/_dashboard/dashboard'
+import { Route as AuthAuthSignInRouteImport } from './routes/_auth/auth.sign-in'
+import { Route as AuthAuthSignUpRouteImport } from './routes/_auth/auth.sign-up'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AuthAuthRoute = AuthAuthRouteImport.update({
+  id: '/_auth/auth',
+  path: '/auth',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const DashboardDashboardRoute = DashboardDashboardRouteImport.update({
+  id: '/_dashboard/dashboard',
+  path: '/dashboard',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AuthAuthSignInRoute = AuthAuthSignInRouteImport.update({
+  id: '/sign-in',
+  path: '/sign-in',
+  getParentRoute: () => AuthAuthRoute,
+} as any)
+const AuthAuthSignUpRoute = AuthAuthSignUpRouteImport.update({
+  id: '/sign-up',
+  path: '/sign-up',
+  getParentRoute: () => AuthAuthRoute,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/auth': typeof AuthAuthRouteWithChildren
+  '/dashboard': typeof DashboardDashboardRoute
+  '/auth/sign-in': typeof AuthAuthSignInRoute
+  '/auth/sign-up': typeof AuthAuthSignUpRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/auth': typeof AuthAuthRouteWithChildren
+  '/dashboard': typeof DashboardDashboardRoute
+  '/auth/sign-in': typeof AuthAuthSignInRoute
+  '/auth/sign-up': typeof AuthAuthSignUpRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/_auth/auth': typeof AuthAuthRouteWithChildren
+  '/_dashboard/dashboard': typeof DashboardDashboardRoute
+  '/_auth/auth/sign-in': typeof AuthAuthSignInRoute
+  '/_auth/auth/sign-up': typeof AuthAuthSignUpRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/'
+  fullPaths: '/' | '/auth' | '/dashboard' | '/auth/sign-in' | '/auth/sign-up'
   fileRoutesByTo: FileRoutesByTo
-  to: '/'
-  id: '__root__' | '/'
+  to: '/' | '/auth' | '/dashboard' | '/auth/sign-in' | '/auth/sign-up'
+  id:
+    | '__root__'
+    | '/'
+    | '/_auth/auth'
+    | '/_dashboard/dashboard'
+    | '/_auth/auth/sign-in'
+    | '/_auth/auth/sign-up'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  AuthAuthRoute: typeof AuthAuthRouteWithChildren
+  DashboardDashboardRoute: typeof DashboardDashboardRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -48,11 +92,55 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/_auth/auth': {
+      id: '/_auth/auth'
+      path: '/auth'
+      fullPath: '/auth'
+      preLoaderRoute: typeof AuthAuthRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/_dashboard/dashboard': {
+      id: '/_dashboard/dashboard'
+      path: '/dashboard'
+      fullPath: '/dashboard'
+      preLoaderRoute: typeof DashboardDashboardRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/_auth/auth/sign-in': {
+      id: '/_auth/auth/sign-in'
+      path: '/sign-in'
+      fullPath: '/auth/sign-in'
+      preLoaderRoute: typeof AuthAuthSignInRouteImport
+      parentRoute: typeof AuthAuthRoute
+    }
+    '/_auth/auth/sign-up': {
+      id: '/_auth/auth/sign-up'
+      path: '/sign-up'
+      fullPath: '/auth/sign-up'
+      preLoaderRoute: typeof AuthAuthSignUpRouteImport
+      parentRoute: typeof AuthAuthRoute
+    }
   }
 }
 
+interface AuthAuthRouteChildren {
+  AuthAuthSignInRoute: typeof AuthAuthSignInRoute
+  AuthAuthSignUpRoute: typeof AuthAuthSignUpRoute
+}
+
+const AuthAuthRouteChildren: AuthAuthRouteChildren = {
+  AuthAuthSignInRoute: AuthAuthSignInRoute,
+  AuthAuthSignUpRoute: AuthAuthSignUpRoute,
+}
+
+const AuthAuthRouteWithChildren = AuthAuthRoute._addFileChildren(
+  AuthAuthRouteChildren,
+)
+
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  AuthAuthRoute: AuthAuthRouteWithChildren,
+  DashboardDashboardRoute: DashboardDashboardRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

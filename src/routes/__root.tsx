@@ -49,7 +49,7 @@ function RootDocument({ children }: { children: React.ReactNode }) {
 			<head>
 				<HeadContent />
 			</head>
-			<body>
+			<body className="bg-background text-black dark:text-white font-normal text-base antialiased font-sans">
 				<AppProvider theme={theme}>{children}</AppProvider>
 				<TanStackDevtools
 					config={{
