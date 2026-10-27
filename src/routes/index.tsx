@@ -5,6 +5,7 @@ import { Button } from "@/shared/components/ui/button";
 import {
   Avatar,
   AvatarFallback,
+  AvatarImage,
 } from "@/shared/components/ui/avatar";
 import {
   DropdownMenu,
@@ -94,6 +95,10 @@ function Home() {
                 className="flex size-10 items-center justify-center rounded-full outline-none ring-offset-background transition hover:opacity-80 focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
               >
                 <Avatar>
+                  <AvatarImage
+                    src={auth.getUserPhoto(user.$id)}
+                    alt={user.name ? `${user.name}'s profile photo` : "Profile photo"}
+                  />
                   <AvatarFallback>
                     {getInitials(user.name, user.email)}
                   </AvatarFallback>
