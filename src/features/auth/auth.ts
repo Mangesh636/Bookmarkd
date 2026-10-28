@@ -37,6 +37,9 @@ export const auth = {
 
   getSession: () => account.get(),
 
+  // The short-lived JWT is validated by the server before any API-key operation.
+  createJWT: async () => (await account.createJWT()).jwt,
+
   // Use the actual user ID so this works even when Appwrite is on a
   // different domain and its session cookie cannot be sent with the image request.
   getUserPhoto: (userId: string) =>
