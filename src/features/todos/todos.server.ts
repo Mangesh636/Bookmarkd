@@ -76,7 +76,7 @@ async function ensureTodoTable() {
       columns: [
         { key: "title", type: "varchar", size: 160, required: true },
         { key: "description", type: "text", required: false },
-        { key: "isComplete", type: "boolean", required: true, default: false },
+        { key: "isComplete", type: "boolean", required: true },
         { key: "ownerId", type: "varchar", size: 64, required: true },
       ],
     });
@@ -126,7 +126,6 @@ async function ensureTodoTable() {
       tableId,
       key: "isComplete",
       required: true,
-      xdefault: false,
     });
   }
   if (!existingKeys.has("ownerId")) {
