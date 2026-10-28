@@ -14,6 +14,7 @@ import { Route as AuthAuthRouteImport } from './routes/_auth/auth'
 import { Route as DashboardDashboardRouteImport } from './routes/_dashboard/dashboard'
 import { Route as AuthAuthSignInRouteImport } from './routes/_auth/auth.sign-in'
 import { Route as AuthAuthSignUpRouteImport } from './routes/_auth/auth.sign-up'
+import { Route as DashboardDashboardIndexRouteImport } from './routes/_dashboard/dashboard.index'
 import { Route as DashboardDashboardArchivedRouteImport } from './routes/_dashboard/dashboard.archived'
 import { Route as DashboardDashboardBookmarksRouteImport } from './routes/_dashboard/dashboard.bookmarks'
 import { Route as DashboardDashboardFavoritesRouteImport } from './routes/_dashboard/dashboard.favorites'
@@ -44,6 +45,11 @@ const AuthAuthSignUpRoute = AuthAuthSignUpRouteImport.update({
   id: '/sign-up',
   path: '/sign-up',
   getParentRoute: () => AuthAuthRoute,
+} as any)
+const DashboardDashboardIndexRoute = DashboardDashboardIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => DashboardDashboardRoute,
 } as any)
 const DashboardDashboardArchivedRoute =
   DashboardDashboardArchivedRouteImport.update({
@@ -86,11 +92,11 @@ export interface FileRoutesByFullPath {
   '/dashboard/favorites': typeof DashboardDashboardFavoritesRoute
   '/dashboard/folders': typeof DashboardDashboardFoldersRoute
   '/dashboard/trash': typeof DashboardDashboardTrashRoute
+  '/dashboard/': typeof DashboardDashboardIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/auth': typeof AuthAuthRouteWithChildren
-  '/dashboard': typeof DashboardDashboardRouteWithChildren
   '/auth/sign-in': typeof AuthAuthSignInRoute
   '/auth/sign-up': typeof AuthAuthSignUpRoute
   '/dashboard/archived': typeof DashboardDashboardArchivedRoute
@@ -98,6 +104,7 @@ export interface FileRoutesByTo {
   '/dashboard/favorites': typeof DashboardDashboardFavoritesRoute
   '/dashboard/folders': typeof DashboardDashboardFoldersRoute
   '/dashboard/trash': typeof DashboardDashboardTrashRoute
+  '/dashboard': typeof DashboardDashboardIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -111,6 +118,7 @@ export interface FileRoutesById {
   '/_dashboard/dashboard/favorites': typeof DashboardDashboardFavoritesRoute
   '/_dashboard/dashboard/folders': typeof DashboardDashboardFoldersRoute
   '/_dashboard/dashboard/trash': typeof DashboardDashboardTrashRoute
+  '/_dashboard/dashboard/': typeof DashboardDashboardIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -125,11 +133,11 @@ export interface FileRouteTypes {
     | '/dashboard/favorites'
     | '/dashboard/folders'
     | '/dashboard/trash'
+    | '/dashboard/'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
     | '/auth'
-    | '/dashboard'
     | '/auth/sign-in'
     | '/auth/sign-up'
     | '/dashboard/archived'
@@ -137,6 +145,7 @@ export interface FileRouteTypes {
     | '/dashboard/favorites'
     | '/dashboard/folders'
     | '/dashboard/trash'
+    | '/dashboard'
   id:
     | '__root__'
     | '/'
@@ -149,6 +158,7 @@ export interface FileRouteTypes {
     | '/_dashboard/dashboard/favorites'
     | '/_dashboard/dashboard/folders'
     | '/_dashboard/dashboard/trash'
+    | '/_dashboard/dashboard/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -193,6 +203,13 @@ declare module '@tanstack/react-router' {
       fullPath: '/auth/sign-up'
       preLoaderRoute: typeof AuthAuthSignUpRouteImport
       parentRoute: typeof AuthAuthRoute
+    }
+    '/_dashboard/dashboard/': {
+      id: '/_dashboard/dashboard/'
+      path: '/'
+      fullPath: '/dashboard/'
+      preLoaderRoute: typeof DashboardDashboardIndexRouteImport
+      parentRoute: typeof DashboardDashboardRoute
     }
     '/_dashboard/dashboard/archived': {
       id: '/_dashboard/dashboard/archived'
@@ -252,6 +269,7 @@ interface DashboardDashboardRouteChildren {
   DashboardDashboardFavoritesRoute: typeof DashboardDashboardFavoritesRoute
   DashboardDashboardFoldersRoute: typeof DashboardDashboardFoldersRoute
   DashboardDashboardTrashRoute: typeof DashboardDashboardTrashRoute
+  DashboardDashboardIndexRoute: typeof DashboardDashboardIndexRoute
 }
 
 const DashboardDashboardRouteChildren: DashboardDashboardRouteChildren = {
@@ -260,6 +278,7 @@ const DashboardDashboardRouteChildren: DashboardDashboardRouteChildren = {
   DashboardDashboardFavoritesRoute: DashboardDashboardFavoritesRoute,
   DashboardDashboardFoldersRoute: DashboardDashboardFoldersRoute,
   DashboardDashboardTrashRoute: DashboardDashboardTrashRoute,
+  DashboardDashboardIndexRoute: DashboardDashboardIndexRoute,
 }
 
 const DashboardDashboardRouteWithChildren =
