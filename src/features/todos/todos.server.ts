@@ -69,18 +69,42 @@ async function ensureTodoTable() {
       throw error;
     }
 
-    await db.createTable({
-      databaseId,
-      tableId,
-      name: "Todos",
-      columns: [
-        { key: "title", type: "varchar", size: 160, required: true },
-        { key: "description", type: "text", required: false },
-        { key: "isComplete", type: "boolean", required: true },
-        { key: "ownerId", type: "varchar", size: 64, required: true },
-      ],
-      indexes: [{ key: "ownerId_index", type: "key", attributes: ["ownerId"] }],
-    });
+    // Use a JSON REST request for initial table creation. Some node-appwrite
+    // SDK versions serialize nested createTable columns incorrectly, causing
+    // Appwrite to receive the request without its required "columns" field.
+    const { endpoint, projectId, apiKey } = config();
+    const response = await fetch(
+      `${endpoint.replace(/\\/$/, "")}/tablesdb/${encodeURIComponent(databaseId)}/tables`,
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "X-Appwrite-Project": projectId,
+          "X-Appwrite-Key": apiKey,
+        },
+        body: JSON.stringify({
+          tableId,
+          name: "Todos",
+          columns: [
+            { key: "title", type: "varchar", size: 160, required: true },
+            { key: "description", type: "text", required: false },
+            { key: "isComplete", type: "boolean", required: true },
+            { key: "ownerId", type: "varchar", size: 64, required: true },
+          ],
+          indexes: [{ key: "ownerId_index", type: "key", attributes: ["ownerId"] }],
+        }),
+      },
+    );
+
+    if (!response.ok) {
+      const errorBody = (await response.json().catch(() => null)) as
+        | { message?: string }
+        | null;
+      throw new Error(
+        errorBody?.message ??
+          `Failed to create Appwrite Todo table (HTTP ${response.status}).`,
+      );
+    }
     return;
   }
 
