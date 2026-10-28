@@ -79,6 +79,7 @@ async function ensureTodoTable() {
         { key: "isComplete", type: "boolean", required: true },
         { key: "ownerId", type: "varchar", size: 64, required: true },
       ],
+      indexes: [{ key: "ownerId_index", type: "key", attributes: ["ownerId"] }],
     });
     return;
   }
@@ -135,6 +136,20 @@ async function ensureTodoTable() {
       key: "ownerId",
       size: 64,
       required: true,
+    });
+  }
+
+  const indexResult = await db.listIndexes({ databaseId, tableId });
+  const hasOwnerIndex = indexResult.indexes.some((index) =>
+    index.attributes.includes("ownerId"),
+  );
+  if (!hasOwnerIndex) {
+    await db.createIndex({
+      databaseId,
+      tableId,
+      key: "ownerId_index",
+      type: "key",
+      attributes: ["ownerId"],
     });
   }
 }
