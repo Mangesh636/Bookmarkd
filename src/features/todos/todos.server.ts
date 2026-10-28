@@ -74,7 +74,7 @@ async function ensureTodoTable() {
     // Appwrite to receive the request without its required "columns" field.
     const { endpoint, projectId, apiKey } = config();
     const response = await fetch(
-      `${endpoint.replace(/\\/$/, "")}/tablesdb/${encodeURIComponent(databaseId)}/tables`,
+      `${endpoint.endsWith("/") ? endpoint.slice(0, -1) : endpoint}/tablesdb/${encodeURIComponent(databaseId)}/tables`,
       {
         method: "POST",
         headers: {
