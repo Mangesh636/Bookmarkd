@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { auth } from "@/features/auth/auth";
-import { createTodo, deleteTodo, listTodos, updateTodo } from "@/features/todos/todos.server";
+import { createTodo, deleteTodo, listTodos, updateTodo } from "@/features/todos/todos.functions";
 import { Button } from "@/shared/components/ui/button";
 import { Input } from "@/shared/components/ui/input";
 import { Textarea } from "@/shared/components/ui/textarea";
