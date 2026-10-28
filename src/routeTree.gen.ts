@@ -14,6 +14,11 @@ import { Route as AuthAuthRouteImport } from './routes/_auth/auth'
 import { Route as DashboardDashboardRouteImport } from './routes/_dashboard/dashboard'
 import { Route as AuthAuthSignInRouteImport } from './routes/_auth/auth.sign-in'
 import { Route as AuthAuthSignUpRouteImport } from './routes/_auth/auth.sign-up'
+import { Route as DashboardDashboardArchivedRouteImport } from './routes/_dashboard/dashboard.archived'
+import { Route as DashboardDashboardBookmarksRouteImport } from './routes/_dashboard/dashboard.bookmarks'
+import { Route as DashboardDashboardFavoritesRouteImport } from './routes/_dashboard/dashboard.favorites'
+import { Route as DashboardDashboardFoldersRouteImport } from './routes/_dashboard/dashboard.folders'
+import { Route as DashboardDashboardTrashRouteImport } from './routes/_dashboard/dashboard.trash'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -40,34 +45,98 @@ const AuthAuthSignUpRoute = AuthAuthSignUpRouteImport.update({
   path: '/sign-up',
   getParentRoute: () => AuthAuthRoute,
 } as any)
+const DashboardDashboardArchivedRoute =
+  DashboardDashboardArchivedRouteImport.update({
+    id: '/archived',
+    path: '/archived',
+    getParentRoute: () => DashboardDashboardRoute,
+  } as any)
+const DashboardDashboardBookmarksRoute =
+  DashboardDashboardBookmarksRouteImport.update({
+    id: '/bookmarks',
+    path: '/bookmarks',
+    getParentRoute: () => DashboardDashboardRoute,
+  } as any)
+const DashboardDashboardFavoritesRoute =
+  DashboardDashboardFavoritesRouteImport.update({
+    id: '/favorites',
+    path: '/favorites',
+    getParentRoute: () => DashboardDashboardRoute,
+  } as any)
+const DashboardDashboardFoldersRoute =
+  DashboardDashboardFoldersRouteImport.update({
+    id: '/folders',
+    path: '/folders',
+    getParentRoute: () => DashboardDashboardRoute,
+  } as any)
+const DashboardDashboardTrashRoute = DashboardDashboardTrashRouteImport.update({
+  id: '/trash',
+  path: '/trash',
+  getParentRoute: () => DashboardDashboardRoute,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/auth': typeof AuthAuthRouteWithChildren
-  '/dashboard': typeof DashboardDashboardRoute
+  '/dashboard': typeof DashboardDashboardRouteWithChildren
   '/auth/sign-in': typeof AuthAuthSignInRoute
   '/auth/sign-up': typeof AuthAuthSignUpRoute
+  '/dashboard/archived': typeof DashboardDashboardArchivedRoute
+  '/dashboard/bookmarks': typeof DashboardDashboardBookmarksRoute
+  '/dashboard/favorites': typeof DashboardDashboardFavoritesRoute
+  '/dashboard/folders': typeof DashboardDashboardFoldersRoute
+  '/dashboard/trash': typeof DashboardDashboardTrashRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/auth': typeof AuthAuthRouteWithChildren
-  '/dashboard': typeof DashboardDashboardRoute
+  '/dashboard': typeof DashboardDashboardRouteWithChildren
   '/auth/sign-in': typeof AuthAuthSignInRoute
   '/auth/sign-up': typeof AuthAuthSignUpRoute
+  '/dashboard/archived': typeof DashboardDashboardArchivedRoute
+  '/dashboard/bookmarks': typeof DashboardDashboardBookmarksRoute
+  '/dashboard/favorites': typeof DashboardDashboardFavoritesRoute
+  '/dashboard/folders': typeof DashboardDashboardFoldersRoute
+  '/dashboard/trash': typeof DashboardDashboardTrashRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/_auth/auth': typeof AuthAuthRouteWithChildren
-  '/_dashboard/dashboard': typeof DashboardDashboardRoute
+  '/_dashboard/dashboard': typeof DashboardDashboardRouteWithChildren
   '/_auth/auth/sign-in': typeof AuthAuthSignInRoute
   '/_auth/auth/sign-up': typeof AuthAuthSignUpRoute
+  '/_dashboard/dashboard/archived': typeof DashboardDashboardArchivedRoute
+  '/_dashboard/dashboard/bookmarks': typeof DashboardDashboardBookmarksRoute
+  '/_dashboard/dashboard/favorites': typeof DashboardDashboardFavoritesRoute
+  '/_dashboard/dashboard/folders': typeof DashboardDashboardFoldersRoute
+  '/_dashboard/dashboard/trash': typeof DashboardDashboardTrashRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/auth' | '/dashboard' | '/auth/sign-in' | '/auth/sign-up'
+  fullPaths:
+    | '/'
+    | '/auth'
+    | '/dashboard'
+    | '/auth/sign-in'
+    | '/auth/sign-up'
+    | '/dashboard/archived'
+    | '/dashboard/bookmarks'
+    | '/dashboard/favorites'
+    | '/dashboard/folders'
+    | '/dashboard/trash'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/auth' | '/dashboard' | '/auth/sign-in' | '/auth/sign-up'
+  to:
+    | '/'
+    | '/auth'
+    | '/dashboard'
+    | '/auth/sign-in'
+    | '/auth/sign-up'
+    | '/dashboard/archived'
+    | '/dashboard/bookmarks'
+    | '/dashboard/favorites'
+    | '/dashboard/folders'
+    | '/dashboard/trash'
   id:
     | '__root__'
     | '/'
@@ -75,12 +144,17 @@ export interface FileRouteTypes {
     | '/_dashboard/dashboard'
     | '/_auth/auth/sign-in'
     | '/_auth/auth/sign-up'
+    | '/_dashboard/dashboard/archived'
+    | '/_dashboard/dashboard/bookmarks'
+    | '/_dashboard/dashboard/favorites'
+    | '/_dashboard/dashboard/folders'
+    | '/_dashboard/dashboard/trash'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AuthAuthRoute: typeof AuthAuthRouteWithChildren
-  DashboardDashboardRoute: typeof DashboardDashboardRoute
+  DashboardDashboardRoute: typeof DashboardDashboardRouteWithChildren
 }
 
 declare module '@tanstack/react-router' {
@@ -120,6 +194,41 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthAuthSignUpRouteImport
       parentRoute: typeof AuthAuthRoute
     }
+    '/_dashboard/dashboard/archived': {
+      id: '/_dashboard/dashboard/archived'
+      path: '/archived'
+      fullPath: '/dashboard/archived'
+      preLoaderRoute: typeof DashboardDashboardArchivedRouteImport
+      parentRoute: typeof DashboardDashboardRoute
+    }
+    '/_dashboard/dashboard/bookmarks': {
+      id: '/_dashboard/dashboard/bookmarks'
+      path: '/bookmarks'
+      fullPath: '/dashboard/bookmarks'
+      preLoaderRoute: typeof DashboardDashboardBookmarksRouteImport
+      parentRoute: typeof DashboardDashboardRoute
+    }
+    '/_dashboard/dashboard/favorites': {
+      id: '/_dashboard/dashboard/favorites'
+      path: '/favorites'
+      fullPath: '/dashboard/favorites'
+      preLoaderRoute: typeof DashboardDashboardFavoritesRouteImport
+      parentRoute: typeof DashboardDashboardRoute
+    }
+    '/_dashboard/dashboard/folders': {
+      id: '/_dashboard/dashboard/folders'
+      path: '/folders'
+      fullPath: '/dashboard/folders'
+      preLoaderRoute: typeof DashboardDashboardFoldersRouteImport
+      parentRoute: typeof DashboardDashboardRoute
+    }
+    '/_dashboard/dashboard/trash': {
+      id: '/_dashboard/dashboard/trash'
+      path: '/trash'
+      fullPath: '/dashboard/trash'
+      preLoaderRoute: typeof DashboardDashboardTrashRouteImport
+      parentRoute: typeof DashboardDashboardRoute
+    }
   }
 }
 
@@ -137,10 +246,29 @@ const AuthAuthRouteWithChildren = AuthAuthRoute._addFileChildren(
   AuthAuthRouteChildren,
 )
 
+interface DashboardDashboardRouteChildren {
+  DashboardDashboardArchivedRoute: typeof DashboardDashboardArchivedRoute
+  DashboardDashboardBookmarksRoute: typeof DashboardDashboardBookmarksRoute
+  DashboardDashboardFavoritesRoute: typeof DashboardDashboardFavoritesRoute
+  DashboardDashboardFoldersRoute: typeof DashboardDashboardFoldersRoute
+  DashboardDashboardTrashRoute: typeof DashboardDashboardTrashRoute
+}
+
+const DashboardDashboardRouteChildren: DashboardDashboardRouteChildren = {
+  DashboardDashboardArchivedRoute: DashboardDashboardArchivedRoute,
+  DashboardDashboardBookmarksRoute: DashboardDashboardBookmarksRoute,
+  DashboardDashboardFavoritesRoute: DashboardDashboardFavoritesRoute,
+  DashboardDashboardFoldersRoute: DashboardDashboardFoldersRoute,
+  DashboardDashboardTrashRoute: DashboardDashboardTrashRoute,
+}
+
+const DashboardDashboardRouteWithChildren =
+  DashboardDashboardRoute._addFileChildren(DashboardDashboardRouteChildren)
+
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AuthAuthRoute: AuthAuthRouteWithChildren,
-  DashboardDashboardRoute: DashboardDashboardRoute,
+  DashboardDashboardRoute: DashboardDashboardRouteWithChildren,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
