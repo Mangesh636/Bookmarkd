@@ -12,7 +12,7 @@ Set these variables in your local `.env` and deployment environment:
 - `APPWRITE_DATABASE_ID`
 - `APPWRITE_TODOS_TABLE_ID=todos`
 
-The API key must not use a `VITE_` prefix and must remain server-side. Give it the scopes needed to create tables and columns and manage rows: `tables.write`, `columns.write`, `rows.read`, and `rows.write`. Appwrite may also require read scopes for schema inspection; grant only the corresponding scopes shown by your Console when prompted.
+The API key must not use a `VITE_` prefix and must remain server-side. Give it the scopes needed to create tables and columns and manage rows: `tables.write`, `columns.write`, `indexes.write`, `rows.read`, and `rows.write`. Appwrite may also require read scopes for schema inspection; grant only the corresponding scopes shown by your Console when prompted.
 
 ## Automatic schema setup
 
