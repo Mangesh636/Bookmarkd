@@ -164,8 +164,20 @@ async function ensureTodoTable() {
   }
 
   const indexResult = await db.listIndexes({ databaseId, tableId });
-  const hasOwnerIndex = indexResult.indexes.some((index) =>
-    index.columns?.includes("ownerId"),
+  // Appwrite SDK/API versions have exposed index columns under different
+  // field names. Check the key too, because the table-creation request may
+  // already have created this index even if its column field isn't populated
+  // in the list response.
+  const indexes = indexResult.indexes as Array<{
+    key?: string;
+    columns?: string[];
+    attributes?: string[];
+  }>;
+  const hasOwnerIndex = indexes.some(
+    (index) =>
+      index.key === "ownerId_index" ||
+      index.columns?.includes("ownerId") ||
+      index.attributes?.includes("ownerId"),
   );
   if (!hasOwnerIndex) {
     await db.createIndex({
