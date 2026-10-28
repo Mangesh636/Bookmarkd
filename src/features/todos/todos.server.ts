@@ -91,7 +91,7 @@ async function ensureTodoTable() {
             { key: "isComplete", type: "boolean", required: true },
             { key: "ownerId", type: "varchar", size: 64, required: true },
           ],
-          indexes: [{ key: "ownerId_index", type: "key", attributes: ["ownerId"] }],
+          indexes: [{ key: "ownerId_index", type: "key", columns: ["ownerId"] }],
         }),
       },
     );
@@ -165,7 +165,7 @@ async function ensureTodoTable() {
 
   const indexResult = await db.listIndexes({ databaseId, tableId });
   const hasOwnerIndex = indexResult.indexes.some((index) =>
-    index.attributes.includes("ownerId"),
+    index.columns?.includes("ownerId"),
   );
   if (!hasOwnerIndex) {
     await db.createIndex({
@@ -173,7 +173,7 @@ async function ensureTodoTable() {
       tableId,
       key: "ownerId_index",
       type: "key",
-      attributes: ["ownerId"],
+      columns: ["ownerId"],
     });
   }
 }
