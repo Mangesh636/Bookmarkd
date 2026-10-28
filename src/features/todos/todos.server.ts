@@ -54,7 +54,7 @@ async function assertOwner(taskId: string, ownerId: string) {
   if (row.ownerId !== ownerId) throw new Error("Task not found.");
 }
 
-export const listTodos = createServerFn({ method: "GET" })
+export const listTodos = createServerFn({ method: "POST" })
   .validator(authInput)
   .handler(async ({ data }) => {
     const user = await currentUser(data.jwt);
