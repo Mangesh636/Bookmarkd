@@ -21,8 +21,8 @@ type UpdateInput = AuthInput & {
 type DeleteInput = AuthInput & { taskId: string };
 
 function config() {
-  const endpoint = process.env.VITE_APPWRITE_ENDPOINT;
-  const projectId = process.env.VITE_APPWRITE_PROJECT_ID;
+  const endpoint = import.meta.env.VITE_APPWRITE_ENDPOINT;
+  const projectId = import.meta.env.VITE_APPWRITE_PROJECT_ID;
   const apiKey = process.env.APPWRITE_API_KEY;
   const databaseId = process.env.APPWRITE_DATABASE_ID;
   const tableId = process.env.APPWRITE_TODOS_TABLE_ID;
