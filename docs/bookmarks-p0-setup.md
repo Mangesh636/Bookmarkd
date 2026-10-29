@@ -31,6 +31,6 @@ Add these indexes:
 
 - Key index on `ownerId` (supports the user's bookmark list query).
 - Unique index on `ownerId` + `url` (prevents duplicate URLs for the same user and supports duplicate checks).
-- Key index on `ownerId` + `url` if your Appwrite version requires a non-unique index for the equality query in addition to the unique index.
+The unique composite index on `ownerId` + `url` also supports the duplicate-check query; if your Appwrite version asks for a separate query index, add a key index on those same attributes.
 
 The dashboard currently loads the most recent 100 bookmarks. Metadata lookup uses Microlink as a best-effort request; if it fails, the URL still saves with a domain-based title.
