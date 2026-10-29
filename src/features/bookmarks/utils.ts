@@ -24,7 +24,12 @@ export function normalizeBookmarkUrl(value: string): string {
 		throw new Error("Enter a valid website URL.");
 	}
 
-	return parsed.toString();
+	const normalized = parsed.toString();
+	if (normalized.length > 2048) {
+		throw new Error("Website URLs must be 2048 characters or fewer.");
+	}
+
+	return normalized;
 }
 
 export function getDomain(url: string): string {
