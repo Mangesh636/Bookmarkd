@@ -4,6 +4,7 @@ import {
 	RiExternalLinkLine,
 	RiGlobalLine,
 } from "@remixicon/react";
+import type { KeyboardEvent } from "react";
 import { Button } from "@/shared/components/ui/button";
 import {
 	Card,
@@ -22,7 +23,7 @@ type BookmarkCardProps = {
 };
 
 export function BookmarkCard({ bookmark, onOpen, onEdit, onDelete }: BookmarkCardProps) {
-	function handleBodyKeyDown(event: React.KeyboardEvent<HTMLDivElement>) {
+	function handleBodyKeyDown(event: KeyboardEvent<HTMLDivElement>) {
 		if (event.target !== event.currentTarget) return;
 		if (event.key === "Enter" || event.key === " ") {
 			event.preventDefault();
