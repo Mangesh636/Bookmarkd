@@ -7,7 +7,7 @@ Set these client-side variables in your local `.env` file and restart the dev se
 - `VITE_APPWRITE_DATABASE_ID`: the Appwrite database ID for Bookmarkd.
 - `VITE_APPWRITE_BOOKMARKS_COLLECTION_ID`: the collection ID for bookmark documents.
 
-The app uses the signed-in user's Appwrite session. Do not put an Appwrite API key in a `VITE_*` variable.
+The app uses the signed-in user's Appwrite session. Do not put an Appwrite API key in a `VITE_*` variable. In the collection permissions, allow **Create** for authenticated users (`Role.users()`). Keep collection-wide Read, Update, and Delete permissions disabled; per-document permissions grant those operations only to the bookmark owner.
 
 ## Collection attributes
 
