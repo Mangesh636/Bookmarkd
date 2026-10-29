@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import type { FormEvent } from "react";
 import { RiLoader4Line, RiLinkM } from "@remixicon/react";
 import { Button } from "@/shared/components/ui/button";
 import {
@@ -46,7 +47,7 @@ export function BookmarkFormDialog({
 		setError("");
 	}, [open, bookmark]);
 
-	async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
+	async function handleSubmit(event: FormEvent<HTMLFormElement>) {
 		event.preventDefault();
 		setSaving(true);
 		setError("");
@@ -56,11 +57,11 @@ export function BookmarkFormDialog({
 			const metadata = await extractBookmarkMetadata(normalizedUrl);
 			const fields: BookmarkFields = {
 				url: normalizedUrl,
-				title: title.trim() || metadata.title || getDomain(normalizedUrl),
-				description: description.trim() || metadata.description || (bookmark?.url === normalizedUrl ? bookmark.description : ""),
-				siteName: metadata.siteName || (bookmark?.url === normalizedUrl ? bookmark.siteName : "") || getDomain(normalizedUrl),
-				imageUrl: metadata.imageUrl || (bookmark?.url === normalizedUrl ? bookmark.imageUrl : "") || "",
-				faviconUrl: metadata.faviconUrl || (bookmark?.url === normalizedUrl ? bookmark.faviconUrl : "") || "",
+				title: (title.trim() || metadata.title || getDomain(normalizedUrl)).slice(0, 200),
+				description: (description.trim() || metadata.description || (bookmark?.url === normalizedUrl ? bookmark.description : "")).slice(0, 2000),
+				siteName: (metadata.siteName || (bookmark?.url === normalizedUrl ? bookmark.siteName : "") || getDomain(normalizedUrl)).slice(0, 255),
+				imageUrl: (metadata.imageUrl || (bookmark?.url === normalizedUrl ? bookmark.imageUrl : "") || "").slice(0, 2048),
+				faviconUrl: (metadata.faviconUrl || (bookmark?.url === normalizedUrl ? bookmark.faviconUrl : "") || "").slice(0, 2048),
 			};
 
 			const saved = bookmark
