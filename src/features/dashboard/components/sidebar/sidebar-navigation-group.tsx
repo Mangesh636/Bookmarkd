@@ -1,4 +1,5 @@
 import { RiArrowDownSLine } from "@remixicon/react";
+import { Link } from "@tanstack/react-router";
 
 import {
 	Collapsible,
@@ -7,6 +8,7 @@ import {
 } from "@/shared/components/ui/collapsible";
 import { Icon } from "@/shared/components/ui/icon";
 import {
+	SidebarMenuAction,
 	SidebarMenuButton,
 	SidebarMenuItem,
 	SidebarMenuSub,
@@ -33,18 +35,17 @@ export function SidebarNavigationGroup({ item }: SidebarNavigationGroupProps) {
 			className="group/collapsible"
 		>
 			<SidebarMenuItem>
+				<SidebarMenuButton tooltip={item.title} render={<Link to={item.url} />}>
+					<Icon icon={item.icon} />
+					<span>{item.title}</span>
+				</SidebarMenuButton>
+
 				<CollapsibleTrigger
-					// biome-ignore lint/a11y/useAnchorContent: render as link
-					render={<a href={item.url} />}
+					render={<SidebarMenuAction />}
+					aria-label={`Toggle ${item.title}`}
+					className="ml-auto transition-transform group-data-open/collapsible:rotate-180"
 				>
-					<SidebarMenuButton tooltip={item.title}>
-						<Icon icon={item.icon} />
-						<span>{item.title}</span>
-						<Icon
-							icon={RiArrowDownSLine}
-							className="ml-auto transition-transform group-data-[state=open]/collapsible:rotate-90"
-						/>
-					</SidebarMenuButton>
+					<Icon icon={RiArrowDownSLine} />
 				</CollapsibleTrigger>
 
 				<CollapsibleContent>
@@ -52,8 +53,7 @@ export function SidebarNavigationGroup({ item }: SidebarNavigationGroupProps) {
 						{item.items.map((subItem) => (
 							<SidebarMenuSubItem key={subItem.title}>
 								<SidebarMenuSubButton
-									// biome-ignore lint/a11y/useAnchorContent: render as link
-									render={<a href={subItem.url} />}
+									render={<Link to="/dashboard" search={subItem.search} />}
 								>
 									<span>{subItem.title}</span>
 								</SidebarMenuSubButton>

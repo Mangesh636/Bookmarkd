@@ -1,3 +1,4 @@
+import { Link } from "@tanstack/react-router";
 import { Icon } from "@/shared/components/ui/icon";
 import {
 	SidebarGroup,
@@ -23,8 +24,7 @@ export function SidebarNavigation() {
 							<SidebarMenuItem key={item.title}>
 								<SidebarMenuButton
 									tooltip={item.title}
-									// biome-ignore lint/a11y/useAnchorContent: render as link
-									render={<a href={item.url} />}
+									render={<Link to={item.url} />}
 								>
 									<Icon icon={item.icon} />
 									<span>{item.title}</span>

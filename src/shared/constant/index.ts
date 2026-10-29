@@ -42,15 +42,18 @@ export const dashboardNavigation = {
 			items: [
 				{
 					title: "Repository",
-					url: "/dashboard?folder=Repository",
+					url: "/dashboard",
+					search: { folder: "Repository" },
 				},
 				{
 					title: "UI Library",
-					url: "/dashboard?folder=ui-library",
+					url: "/dashboard",
+					search: { folder: "ui-library" },
 				},
 				{
 					title: "Documentation",
-					url: "/dashboard?folder=documentation",
+					url: "/dashboard",
+					search: { folder: "documentation" },
 				},
 			],
 		},
@@ -61,15 +64,18 @@ export const dashboardNavigation = {
 			items: [
 				{
 					title: "AI",
-					url: "/dashboard?tag=ai",
+					url: "/dashboard",
+					search: { tag: "ai" },
 				},
 				{
 					title: "ShadCN",
-					url: "/dashboard?tag=shadcn",
+					url: "/dashboard",
+					search: { tag: "shadcn" },
 				},
 				{
 					title: "GitHub",
-					url: "/dashboard?tag=github",
+					url: "/dashboard",
+					search: { tag: "github" },
 				},
 			],
 		},
