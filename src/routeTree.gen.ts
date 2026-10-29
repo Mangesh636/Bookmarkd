@@ -19,6 +19,8 @@ import { Route as DashboardDashboardArchivedRouteImport } from './routes/_dashbo
 import { Route as DashboardDashboardBookmarksRouteImport } from './routes/_dashboard/dashboard.bookmarks'
 import { Route as DashboardDashboardFavoritesRouteImport } from './routes/_dashboard/dashboard.favorites'
 import { Route as DashboardDashboardFoldersRouteImport } from './routes/_dashboard/dashboard.folders'
+import { Route as DashboardDashboardProfileRouteImport } from './routes/_dashboard/dashboard.profile'
+import { Route as DashboardDashboardSettingsRouteImport } from './routes/_dashboard/dashboard.settings'
 import { Route as DashboardDashboardTagsRouteImport } from './routes/_dashboard/dashboard.tags'
 import { Route as DashboardDashboardTrashRouteImport } from './routes/_dashboard/dashboard.trash'
 
@@ -76,6 +78,18 @@ const DashboardDashboardFoldersRoute =
     path: '/folders',
     getParentRoute: () => DashboardDashboardRoute,
   } as any)
+const DashboardDashboardProfileRoute =
+  DashboardDashboardProfileRouteImport.update({
+    id: '/profile',
+    path: '/profile',
+    getParentRoute: () => DashboardDashboardRoute,
+  } as any)
+const DashboardDashboardSettingsRoute =
+  DashboardDashboardSettingsRouteImport.update({
+    id: '/settings',
+    path: '/settings',
+    getParentRoute: () => DashboardDashboardRoute,
+  } as any)
 const DashboardDashboardTagsRoute = DashboardDashboardTagsRouteImport.update({
   id: '/tags',
   path: '/tags',
@@ -97,6 +111,8 @@ export interface FileRoutesByFullPath {
   '/dashboard/bookmarks': typeof DashboardDashboardBookmarksRoute
   '/dashboard/favorites': typeof DashboardDashboardFavoritesRoute
   '/dashboard/folders': typeof DashboardDashboardFoldersRoute
+  '/dashboard/profile': typeof DashboardDashboardProfileRoute
+  '/dashboard/settings': typeof DashboardDashboardSettingsRoute
   '/dashboard/tags': typeof DashboardDashboardTagsRoute
   '/dashboard/trash': typeof DashboardDashboardTrashRoute
   '/dashboard/': typeof DashboardDashboardIndexRoute
@@ -110,6 +126,8 @@ export interface FileRoutesByTo {
   '/dashboard/bookmarks': typeof DashboardDashboardBookmarksRoute
   '/dashboard/favorites': typeof DashboardDashboardFavoritesRoute
   '/dashboard/folders': typeof DashboardDashboardFoldersRoute
+  '/dashboard/profile': typeof DashboardDashboardProfileRoute
+  '/dashboard/settings': typeof DashboardDashboardSettingsRoute
   '/dashboard/tags': typeof DashboardDashboardTagsRoute
   '/dashboard/trash': typeof DashboardDashboardTrashRoute
   '/dashboard': typeof DashboardDashboardIndexRoute
@@ -125,6 +143,8 @@ export interface FileRoutesById {
   '/_dashboard/dashboard/bookmarks': typeof DashboardDashboardBookmarksRoute
   '/_dashboard/dashboard/favorites': typeof DashboardDashboardFavoritesRoute
   '/_dashboard/dashboard/folders': typeof DashboardDashboardFoldersRoute
+  '/_dashboard/dashboard/profile': typeof DashboardDashboardProfileRoute
+  '/_dashboard/dashboard/settings': typeof DashboardDashboardSettingsRoute
   '/_dashboard/dashboard/tags': typeof DashboardDashboardTagsRoute
   '/_dashboard/dashboard/trash': typeof DashboardDashboardTrashRoute
   '/_dashboard/dashboard/': typeof DashboardDashboardIndexRoute
@@ -141,6 +161,8 @@ export interface FileRouteTypes {
     | '/dashboard/bookmarks'
     | '/dashboard/favorites'
     | '/dashboard/folders'
+    | '/dashboard/profile'
+    | '/dashboard/settings'
     | '/dashboard/tags'
     | '/dashboard/trash'
     | '/dashboard/'
@@ -154,6 +176,8 @@ export interface FileRouteTypes {
     | '/dashboard/bookmarks'
     | '/dashboard/favorites'
     | '/dashboard/folders'
+    | '/dashboard/profile'
+    | '/dashboard/settings'
     | '/dashboard/tags'
     | '/dashboard/trash'
     | '/dashboard'
@@ -168,6 +192,8 @@ export interface FileRouteTypes {
     | '/_dashboard/dashboard/bookmarks'
     | '/_dashboard/dashboard/favorites'
     | '/_dashboard/dashboard/folders'
+    | '/_dashboard/dashboard/profile'
+    | '/_dashboard/dashboard/settings'
     | '/_dashboard/dashboard/tags'
     | '/_dashboard/dashboard/trash'
     | '/_dashboard/dashboard/'
@@ -251,6 +277,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof DashboardDashboardFoldersRouteImport
       parentRoute: typeof DashboardDashboardRoute
     }
+    '/_dashboard/dashboard/profile': {
+      id: '/_dashboard/dashboard/profile'
+      path: '/profile'
+      fullPath: '/dashboard/profile'
+      preLoaderRoute: typeof DashboardDashboardProfileRouteImport
+      parentRoute: typeof DashboardDashboardRoute
+    }
+    '/_dashboard/dashboard/settings': {
+      id: '/_dashboard/dashboard/settings'
+      path: '/settings'
+      fullPath: '/dashboard/settings'
+      preLoaderRoute: typeof DashboardDashboardSettingsRouteImport
+      parentRoute: typeof DashboardDashboardRoute
+    }
     '/_dashboard/dashboard/tags': {
       id: '/_dashboard/dashboard/tags'
       path: '/tags'
@@ -287,6 +327,8 @@ interface DashboardDashboardRouteChildren {
   DashboardDashboardBookmarksRoute: typeof DashboardDashboardBookmarksRoute
   DashboardDashboardFavoritesRoute: typeof DashboardDashboardFavoritesRoute
   DashboardDashboardFoldersRoute: typeof DashboardDashboardFoldersRoute
+  DashboardDashboardProfileRoute: typeof DashboardDashboardProfileRoute
+  DashboardDashboardSettingsRoute: typeof DashboardDashboardSettingsRoute
   DashboardDashboardTagsRoute: typeof DashboardDashboardTagsRoute
   DashboardDashboardTrashRoute: typeof DashboardDashboardTrashRoute
   DashboardDashboardIndexRoute: typeof DashboardDashboardIndexRoute
@@ -297,6 +339,8 @@ const DashboardDashboardRouteChildren: DashboardDashboardRouteChildren = {
   DashboardDashboardBookmarksRoute: DashboardDashboardBookmarksRoute,
   DashboardDashboardFavoritesRoute: DashboardDashboardFavoritesRoute,
   DashboardDashboardFoldersRoute: DashboardDashboardFoldersRoute,
+  DashboardDashboardProfileRoute: DashboardDashboardProfileRoute,
+  DashboardDashboardSettingsRoute: DashboardDashboardSettingsRoute,
   DashboardDashboardTagsRoute: DashboardDashboardTagsRoute,
   DashboardDashboardTrashRoute: DashboardDashboardTrashRoute,
   DashboardDashboardIndexRoute: DashboardDashboardIndexRoute,
