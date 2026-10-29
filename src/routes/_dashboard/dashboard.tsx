@@ -44,6 +44,7 @@ function Dashboard() {
 	const [bookmarks, setBookmarks] = useState<BookmarkDocument[]>([]);
 	const [loadingBookmarks, setLoadingBookmarks] = useState(false);
 	const [loadError, setLoadError] = useState("");
+	const [reloadKey, setReloadKey] = useState(0);
 	const [search, setSearch] = useState("");
 	const [formOpen, setFormOpen] = useState(false);
 	const [editingBookmark, setEditingBookmark] = useState<BookmarkDocument | null>(null);
@@ -99,7 +100,7 @@ function Dashboard() {
 		return () => {
 			active = false;
 		};
-	}, [user]);
+	}, [user, reloadKey]);
 
 	const filteredBookmarks = useMemo(() => {
 		const normalizedSearch = search.trim().toLowerCase();
@@ -243,7 +244,7 @@ function Dashboard() {
 								<h2 className="font-medium">Bookmarks could not be loaded</h2>
 								<p className="mt-1 break-words text-sm text-muted-foreground">{loadError}</p>
 								<Button className="mt-3" variant="outline" size="sm" onClick={() => {
-									setUser({ ...user });
+									setReloadKey((current) => current + 1);
 								}}>
 									Retry
 								</Button>
