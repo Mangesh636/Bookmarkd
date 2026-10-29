@@ -18,6 +18,28 @@ function getBookmarkConfig() {
 	return { databaseId, collectionId };
 }
 
+async function assertUrlIsUnique(
+	databaseId: string,
+	collectionId: string,
+	ownerId: string,
+	url: string,
+	excludeBookmarkId?: string,
+) {
+	const result = await databases.listDocuments({
+		databaseId,
+		collectionId,
+		queries: [
+			Query.equal("ownerId", ownerId),
+			Query.equal("url", url),
+			Query.limit(2),
+		],
+	});
+
+	if (result.documents.some((document) => document.$id !== excludeBookmarkId)) {
+		throw new Error("You’ve already saved this URL.");
+	}
+}
+
 export async function listBookmarks(ownerId: string): Promise<BookmarkDocument[]> {
 	const { databaseId, collectionId } = getBookmarkConfig();
 	const result = await databases.listDocuments({
@@ -38,6 +60,8 @@ export async function createBookmark(
 	fields: BookmarkFields,
 ): Promise<BookmarkDocument> {
 	const { databaseId, collectionId } = getBookmarkConfig();
+	await assertUrlIsUnique(databaseId, collectionId, ownerId, fields.url);
+
 	const result = await databases.createDocument({
 		databaseId,
 		collectionId,
@@ -54,10 +78,19 @@ export async function createBookmark(
 }
 
 export async function updateBookmark(
+	ownerId: string,
 	bookmarkId: string,
 	fields: BookmarkFields,
 ): Promise<BookmarkDocument> {
 	const { databaseId, collectionId } = getBookmarkConfig();
+	await assertUrlIsUnique(
+		databaseId,
+		collectionId,
+		ownerId,
+		fields.url,
+		bookmarkId,
+	);
+
 	const result = await databases.updateDocument({
 		databaseId,
 		collectionId,
