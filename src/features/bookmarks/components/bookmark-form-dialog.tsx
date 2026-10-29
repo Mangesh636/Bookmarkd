@@ -57,14 +57,14 @@ export function BookmarkFormDialog({
 			const fields: BookmarkFields = {
 				url: normalizedUrl,
 				title: title.trim() || metadata.title || getDomain(normalizedUrl),
-				description: description.trim() || metadata.description,
-				siteName: metadata.siteName || getDomain(normalizedUrl),
-				imageUrl: metadata.imageUrl,
-				faviconUrl: metadata.faviconUrl,
+				description: description.trim() || metadata.description || (bookmark?.url === normalizedUrl ? bookmark.description : ""),
+				siteName: metadata.siteName || (bookmark?.url === normalizedUrl ? bookmark.siteName : "") || getDomain(normalizedUrl),
+				imageUrl: metadata.imageUrl || (bookmark?.url === normalizedUrl ? bookmark.imageUrl : "") || "",
+				faviconUrl: metadata.faviconUrl || (bookmark?.url === normalizedUrl ? bookmark.faviconUrl : "") || "",
 			};
 
 			const saved = bookmark
-				? await updateBookmark(bookmark.$id, fields)
+				? await updateBookmark(ownerId, bookmark.$id, fields)
 				: await createBookmark(ownerId, fields);
 
 			onSaved(saved);
