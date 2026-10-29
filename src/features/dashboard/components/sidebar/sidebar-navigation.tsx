@@ -10,7 +10,7 @@ import {
 import { dashboardNavigation } from "@/shared/constant";
 import { SidebarNavigationGroup } from "./sidebar-navigation-group";
 
-export function SidebarNavigation() {
+export const SidebarNavigation = () => {
 	return (
 		<SidebarGroup>
 			<SidebarGroupContent>
@@ -36,4 +36,4 @@ export function SidebarNavigation() {
 			</SidebarGroupContent>
 		</SidebarGroup>
 	);
-}
+};

@@ -28,7 +28,9 @@ interface SidebarNavigationGroupProps {
 	item: NavigationGroupItem;
 }
 
-export function SidebarNavigationGroup({ item }: SidebarNavigationGroupProps) {
+export const SidebarNavigationGroup = ({
+	item,
+}: SidebarNavigationGroupProps) => {
 	return (
 		<Collapsible
 			defaultOpen={item.title === "Folders"}
@@ -64,4 +66,4 @@ export function SidebarNavigationGroup({ item }: SidebarNavigationGroupProps) {
 			</SidebarMenuItem>
 		</Collapsible>
 	);
-}
+};
