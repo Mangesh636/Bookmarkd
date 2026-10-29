@@ -22,12 +22,22 @@ type BookmarkCardProps = {
 };
 
 export function BookmarkCard({ bookmark, onOpen, onEdit, onDelete }: BookmarkCardProps) {
+	function handleBodyKeyDown(event: React.KeyboardEvent<HTMLDivElement>) {
+		if (event.target !== event.currentTarget) return;
+		if (event.key === "Enter" || event.key === " ") {
+			event.preventDefault();
+			onOpen(bookmark);
+		}
+	}
+
 	return (
 		<Card className="group flex min-w-0 flex-col overflow-hidden transition-colors hover:border-foreground/20">
-			<button
-				type="button"
-				className="flex flex-1 flex-col text-left outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-inset"
+			<div
+				role="button"
+				tabIndex={0}
+				className="flex flex-1 cursor-pointer flex-col text-left outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-inset"
 				onClick={() => onOpen(bookmark)}
+				onKeyDown={handleBodyKeyDown}
 				aria-label={`View bookmark: ${bookmark.title}`}
 			>
 				<CardHeader className="w-full gap-3">
@@ -55,14 +65,13 @@ export function BookmarkCard({ bookmark, onOpen, onEdit, onDelete }: BookmarkCar
 						{bookmark.description || bookmark.url}
 					</p>
 				</CardContent>
-			</button>
+			</div>
 			<CardFooter className="mt-auto flex items-center justify-between gap-2 border-t pt-3">
 				<a
 					href={bookmark.url}
 					target="_blank"
 					rel="noopener noreferrer"
 					className="flex min-w-0 items-center gap-1.5 truncate text-xs text-muted-foreground hover:text-foreground"
-					onClick={(event) => event.stopPropagation()}
 				>
 					<RiExternalLinkLine className="size-3.5 shrink-0" aria-hidden="true" />
 					<span className="truncate">{getDomain(bookmark.url)}</span>
